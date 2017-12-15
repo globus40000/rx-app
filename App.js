@@ -1,23 +1,16 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View } from 'react-native';
+import { Alert, Button, View } from 'react-native';
 
-export default class PizzaTranslator extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {text: ''};
-    }
-
+export default class BasicButton extends Component {
     render() {
         return (
-            <View style={{padding: 40}}>
-                <TextInput
-                    style={{height: 40}}
-                    placeholder='Type here to translate!'
-                    onChangeText={text => this.setState({text})}
+            <View style={{paddingTop: 40}}>
+                <Button
+                    onPress={() => {
+                        Alert.alert('You tapped the button!');
+                    }}
+                    title="Press Me"
                 />
-                <Text style={{padding: 10, fontSize: 42}}>
-                    {this.state.text.split(' ').map(word => word && '🍕').join(' ')}
-                </Text>
             </View>
         );
     }
