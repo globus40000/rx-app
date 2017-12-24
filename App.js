@@ -1,5 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
+
+console.log(Platform.Version);
 
 export default class App extends React.Component {
   render() {
@@ -17,7 +19,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: Platform.OS === 'ios' ? 'center' : 'flex-start',
+    ...Platform.select({
+        ios: {
+            justifyContent: 'center'
+        },
+        android: {
+            justifyContent: 'flex-start'
+        }
+    })
   },
 });
