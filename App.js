@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, Image, View } from 'react-native';
 
 console.log(Platform.Version);
 
@@ -10,6 +10,7 @@ export default class App extends React.Component {
         <Text>Open up App.js to start working on your app!</Text>
         <Text>Changes you make will automatically reload.</Text>
         <Text>Shake your phone to open the developer menu.</Text>
+        <Image source={require('./img/react-logo.png')} style={styles.image}/>
       </View>
     );
   }
@@ -29,4 +30,8 @@ const styles = StyleSheet.create({
         }
     })
   },
+  image: {
+      width: 300,
+      height: 300
+  }
 });
