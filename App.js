@@ -1,37 +1,46 @@
 import React from 'react';
-import { Platform, StyleSheet, Text, Image, View } from 'react-native';
+import { Animated, Text, View } from 'react-native';
 
-console.log(Platform.Version);
+class FadeInView extends React.Component {
+    state = {
+        fadeAnim: new Animated.Value(0) // Initial value for opacity: 0
+    }
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-        <Image source={require('./img/react-logo.png')} style={styles.image}/>
-      </View>
-    );
-  }
+    componentDidMount() {
+        Animated.timing(                // Animate over time
+            this.state.fadeAnim,        // The animated value to drive
+            {
+                toValue: 1,             // Animate to opacity: 1 (opaque)
+                duration: 10000,        // Make it take a while
+            }
+        ).start();                      // Starts the animation
+    }
+
+    render() {
+        let { fadeAnim } = this.state;
+
+        return (
+            <Animated.View              // Special animatable View
+                style={{
+                    ...this.props.style,
+                    opacity: fadeAnim,  // Bind opacity to animated value
+                }}
+            >
+                {this.props.children}
+            </Animated.View>
+        );
+    }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: Platform.OS === 'ios' ? 'center' : 'flex-start',
-    ...Platform.select({
-        ios: {
-            justifyContent: 'center'
-        },
-        android: {
-            justifyContent: 'flex-start'
-        }
-    })
-  },
-  image: {
-      width: 300,
-      height: 300
-  }
-});
+// You can then use your `FadeInView` in place of a `View` in your components:
+export default class App extends React.Component {
+    render() {
+        return (
+            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                <FadeInView style={{width: 250, height: 50, backgroundColor: 'powderblue'}}>
+                    <Text style={{fontSize: 28, textAlign: 'center', margin: 10}}>Fading in</Text>
+                </FadeInView>
+            </View>
+        )
+    }
+}
