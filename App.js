@@ -1,29 +1,31 @@
 import React from 'react';
-import {View, Button, StyleSheet, Alert} from 'react-native';
+import {View, Text, DrawerLayoutAndroid, TextInput, Button} from 'react-native';
 
 export default class App extends React.Component {
+
     render() {
-        return (
-            <View style={styles.btn}>
-                <Button
-                    title="Learn More"
-                    onPress={onPressLearnMore}
-                    color="#841584"
-                    accessibilityLabel="Learn more about this purple button"
-                    //disabled={true}
-                />
+        var navigationView = (
+            <View style={{flex: 1, marginTop: 50}}>
+                <Text style={{margin: 10, fontSize: 15, textAlign: 'left', color: 'white'}}>I'm in the Drawer!</Text>
             </View>
+        );
+        return (
+            <DrawerLayoutAndroid
+                drawerWidth={300}
+                drawerPosition={DrawerLayoutAndroid.positions.Left}
+                renderNavigationView={() => navigationView}
+                /*onDrawerClose={() => alert('Drawer has been closed')}*/
+                /*onDrawerOpen={() => alert('Drawer has been opened')}*/
+                drawerBackgroundColor="rgba(0,0,0,0.5)"
+                keyboardDismissMode="on-drag">
+                <View style={{flex: 1, alignItems: 'center', marginTop: 50}}>
+                    <Text style={{margin: 10, fontSize: 15, textAlign: 'right'}}>Hello</Text>
+                    <Text style={{margin: 10, fontSize: 15, textAlign: 'right'}}>World!</Text>
+                    <TextInput
+                        style={{width: 120}}
+                        placeholder="You can type here"/>
+                </View>
+            </DrawerLayoutAndroid>
         )
     }
 }
-
-function onPressLearnMore() {
-    console.log('---- onPressLearnMore()');
-    Alert.alert('You tapped the button!');
-}
-
-const styles = StyleSheet.create({
-    btn: {
-        padding: 50
-    }
-});
